@@ -18,9 +18,26 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
+import kotlin.test.AfterClass
+import kotlin.test.AfterTest
+import kotlin.test.BeforeClass
+
+
+@BeforeClass
+fun setUp() {
+//        val tmpDir =
+    platform.posix.system("export PATH=.:\$PATH")
+    platform.posix.system("echo 'sleep 5' > save && chmod +x save")
+}
+
+@AfterClass
+fun tearDown() {
+    platform.posix.system("rm save")
+}
 
 @Suppress("INLINE_CLASS_CAN_BE_USED")
 class SaveAgentTest {
+    // todo: create temp dir with save executable, run tests with env PATH=$PATH+temp dir, change `sleep 5` to `./save` and mock it with `sleep` only in tests
     private val saveAgentForTest = SaveAgent(AgentConfiguration(), httpClient = HttpClient(MockEngine) {
         install(JsonFeature) {
             serializer = KotlinxSerializer(Json {

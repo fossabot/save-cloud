@@ -111,7 +111,9 @@ class SaveAgent(private val config: AgentConfiguration,
         }
     }
 
-    private fun runSave(cliArgs: List<String>) = platform.posix.system("sleep 5")  // fixme: actually run save CLI here
+    private fun runSave(cliArgs: List<String>): Int {
+        return platform.posix.system("./save${cliArgs.joinToString(" ", prefix = " ")}")
+    }
 
     /**
      * @param executionProgress execution progress that will be sent in a heartbeat message
