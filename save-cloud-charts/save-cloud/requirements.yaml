@@ -1,6 +1,6 @@
 dependencies:
   - name: grafana
-    version: ^5.0.0
+    version: ^6.0.0
     repository: https://grafana.github.io/helm-charts
   - name: prometheus
     version: ^15.8.2
